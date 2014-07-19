@@ -1,0 +1,131 @@
+$scope.transactions = [
+      {
+        id: 20140213016,
+        itime: "2014/2/13 09:01",
+        otime: "2014/2/13 12:01",
+        nopol: "B 2923 EDO"
+        kategori: "Motor",
+        amount: 5000
+      },
+      {
+        id: 20140213015,
+        itime: "2014/2/13 08:19",
+        otime: "2014/2/13 11:51",
+        nopol: "B 2831 PLO"
+        kategori: "Motor",
+        amount: 6000
+      },
+      {
+        id: 20140213014,
+        itime: "2014/2/13 10:05",
+        otime: "2014/2/13 11:50",
+        nopol: "B 3643 EDF"
+        kategori: "Mobil",
+        amount: 3000
+      },
+      {
+        id: 20140213013,
+        itime: "2014/2/13 08:47",
+        otime: "2014/2/13 11:36",
+        nopol: "B 2893 HF"
+        kategori: "Mobil",
+        amount: 7000
+      },
+      {
+        id: 201402130012,
+        itime: "2014/2/13 09:42",
+        otime: "2014/2/13 11:31",
+        nopol: "B 8402 EDF"
+        kategori: "Mobil",
+        amount: 5000
+      },
+      {
+        id: 20140213011,
+        itime: "2014/2/13 07:19",
+        otime: "2014/2/13 11:30",
+        nopol: "B 2983 YHO"
+        kategori: "Motor",
+        amount: 6000
+      },
+      {
+        id: 20140213010,
+        itime: "2014/2/13 06:43",
+        otime: "2014/2/13 11:26",
+        nopol: "B 1122 TP"
+        kategori: "Motor",
+        amount: 7000
+      },
+      {
+        id: 20140213009,
+        itime: "2014/2/13 09:12",
+        otime: "2014/2/13 11:23",
+        nopol: "B 6342 EL"
+        kategori: "Motor",
+        amount: 4000
+      },
+
+      {
+        id: 20140213008,
+        itime: "2014/2/13 09:01",
+        otime: "2014/2/13 11:01",
+        nopol: "B 3764 TE"
+        kategori: "Mobil",
+        amount: 5000
+      },
+      {
+        id: 20140213007,
+        itime: "2014/2/13 08:19",
+        otime: "2014/2/13 10:55",
+        nopol: "B 3774 TG"
+        kategori: "Mobil",
+        amount: 5000
+      },
+      {
+        id: 20140213006,
+        itime: "2014/2/13 09:05",
+        otime: "2014/2/13 10:46",
+        nopol: "B 7832 YHO"
+        kategori: "Motor",
+        amount: 3000
+      },
+      {
+        id: 20140213005,
+        itime: "2014/2/13 07:07",
+        otime: "2014/2/13 10:44",
+        nopol: "B 2893 HF"
+        kategori: "Mobil",
+        amount: 9000
+      },
+      {
+        id: 20140213004,
+        itime: "2014/2/13 08:22",
+        otime: "2014/2/13 10:21",
+        nopol: "B 8384 PL"
+        kategori: "Mobil",
+        amount: 7000
+      },
+      {
+        id: 20140213003,
+        itime: "2014/2/13 07:19",
+        otime: "2014/2/13 09:58",
+        nopol: "B 2371 PL"
+        kategori: "Mobil",
+        amount: 7000
+      },
+      {
+        id: 20140213002,
+        itime: "2014/2/13 08:12",
+        otime: "2014/2/13 09:34",
+        nopol: "B 1122 TP"
+        kategori: "Motor",
+        amount: 3000
+      },
+      {
+        id: 20140213001,
+        itime: "2014/2/13 07:32",
+        otime: "2014/2/13 09:19",
+        nopol: "B 1892 UL"
+        kategori: "Motor",
+        amount: 4000
+      },
+    ];

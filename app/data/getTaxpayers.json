@@ -1,0 +1,41 @@
+[
+{
+	"id": "001",
+	"type": "Hotel",
+	"name": "Kartika Chandra",
+	"street": "Jl. Gatot Subroto, Jakarta 12060 Indonesia",
+	"phone": "021-5251008",
+	"monitoredTax": "15.456.300",
+	"validatedTax": "7.728.150",
+	"onDevice": 10,
+	"offDevice": 2,
+	"lat": -6.227057,
+	"lng": 106.818974
+},
+{
+	"id": "002",
+	"type": "Parking",
+	"name": "FX Mall",
+	"street": "Jl. Jend. Sudirman Pintu Satu Senayan GBK",
+	"phone": "021-25554140",
+	"monitoredTax": "86.000",
+	"validatedTax": "43.000",
+	"onDevice": 1,
+	"offDevice": 5,
+	"lat": -6.224479,
+	"lng": 106.803643
+},
+{
+	"id": "003",
+	"type": "Restaurant",
+	"name": "McD Plaza Sentral",
+	"street": "Jl. Jend. Sudirman Kav. 47-48, Plaza Sentral Gnd. Fl.",
+	"phone": "021-5710922",
+	"monitoredTax": "2.880.700",
+	"validatedTax": "1.440.350",
+	"onDevice": 4,
+	"offDevice": 20,
+	"lat": -6.215572,
+	"lng": 106.816663
+}
+]

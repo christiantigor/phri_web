@@ -1,0 +1,110 @@
+$scope.transactions = [
+      {
+        id: 12
+        time: "2014/2/14 09:01",
+        total: 1301200,
+        receipt: 20140213012,
+        room: 1252000,
+        food: 73200,
+        service: 26000
+      },
+      {
+        id: 11
+        time: "2014/2/13 08:37",
+        total: 1012400,
+        receipt: 20140213011,
+        room: 850100,
+        food: 147300,
+        service: 29000
+      },
+      {
+        id: 10
+        time: "2014/2/13 08:12",
+        total: 1982500,
+        receipt: 20140213010,
+        room: 1890500,
+        food: 84700,
+        service: 25000
+      },
+      {
+        id: 9
+        time: "2014/2/14 07:44",
+        total: 1002900,
+        receipt: 20140213009,
+        room: 850100,
+        food: 181800,
+        service: 29000
+      },
+      {
+        id: 8
+        time: "2014/2/13 12:50",
+        total: 1598800,
+        receipt: 20140213008,
+        room: 1520000,
+        food: 44800,
+        service: 26000
+      },
+      {
+        id: 7
+        time: "2014/2/13 12:35",
+        total: 785200,
+        receipt: 20140213007,
+        room: 680200,
+        food: 76900,
+        service: 25000
+      },
+      {
+        id: 6
+        time: "2014/2/13 12:22",
+        total: 2010500,
+        receipt: 20140213006,
+        room: 1890500,
+        food: 127800,
+        service: 29000
+      },
+      {
+        id: 5
+        time: "2014/2/13 11:10",
+        total: 1388000,
+        receipt: 20140213005,
+        room: 1252000,
+        food: 110900,
+        service: 29000
+      },
+      {
+        id: 4
+        time: "2014/2/13 10:02",
+        total: 1781100,
+        receipt: 20140213004,
+        room: 1520000,
+        food: 129100,
+        service: 29000
+      },
+      {
+        id: 3
+        time: "2014/2/13 08:52",
+        total: 1021000,
+        receipt: 20140213003,
+        room: 850100,
+        food: 87200,
+        service: 25000
+      },
+      {
+        id: 2
+        time: "2014/2/13 08:44",
+        total: 821700,
+        receipt: 20140213002,
+        room: 780500,
+        food: 10200,
+        service: 20000
+      },
+      {
+        id: 1
+        time: "2014/2/13 07:32",
+        total: 751000,
+        receipt: 20140213001,
+        room: 680200,
+        food: 44800,
+        service: 26000
+      },
+    ];

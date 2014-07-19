@@ -1,0 +1,181 @@
+<div id="wrapper" ng-init="initMain()">
+
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="index.html">PHRI</a>
+		</div>
+		<!-- /.navbar-header -->
+
+		<ul class="nav navbar-top-links navbar-right">
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-messages">
+					<li><a href=""><i class="fa fa-user fa-fw"></i> User Profile</a>
+					</li>
+					<li><a href=""><i class="fa fa-gear fa-fw"></i> Settings</a>
+					</li>
+					<li class="divider"></li>
+					<li ng-click="go('/login')"><a href=""><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+					</li>
+				</ul>
+				<!-- /.dropdown-user -->
+			</li>
+			<!-- /.dropdown -->
+		</ul>
+		<!-- /.navbar-top-links -->
+
+		<div class="navbar-default navbar-static-side" role="navigation">
+			<div class="sidebar-collapse">
+				<ul class="nav" id="side-menu">
+					<li ng-click="go('/')">
+						<a href=""><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+					</li>
+					<li ng-click="go('/taxpayer')">
+						<a href=""><i class="fa fa-users fa-fw"></i> Taxpayers</a>
+					</li>
+				</ul>
+				<!-- /#side-menu -->
+			</div>
+			<!-- /.sidebar-collapse -->
+		</div>
+		<!-- /.navbar-static-side -->
+	</nav>
+
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Dashboard</h1>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+		<!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <alert ng-repeat="news in newsticker" type="news.type" close="closeNewsticker($index)">{{news.msg}}</alert>
+			</div>
+        </div>
+		<!-- /.row -->
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-users fa-fw"></i> Number of Taxpayers
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+					    <div class="row">
+						    <div class="col-lg-8">
+								<i class="fa fa-cutlery fa-fw"></i> Restaurant
+							</div>
+							<div class="col-lg-4">
+							    <span class="pull-right text-muted small"><em><strong>{{taxpayersType[2][1]}}</strong> unit(s)</em></span>
+							</div>
+						</div>
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+			<!-- /.col-lg-6 -->
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-money fa-fw" style="color:grey"></i> Monitored Taxes
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-8">
+								<strong>Rp {{monitoredTax}},00</strong>
+							</div>
+							<!-- /.col-lg-8 (nested) -->
+							<div class="col-lg-4">
+								<span class="pull-right text-muted small">
+									<i class="fa fa-arrow-up fa-fw" style="color:green"></i>
+									<em><strong>10%</strong> from last month</em>
+								</span>
+							</div>
+							<!-- /.col-lg-4 (nested) -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+			<!-- /.col-lg-6 -->
+		</div>
+		<!-- /.row -->
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-shopping-cart fa-fw"></i> Transactions
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="row">
+						    <div class="col-lg-8">
+								<i class="fa fa-cutlery fa-fw"></i> Number of Transactions
+							</div>
+							<div class="col-lg-4">
+							    <span class="pull-right text-muted small"><em><strong>{{numTransRestaurant}}</strong> this month</em></span>
+							</div>
+						</div>
+						<!-- /.row -->
+						<div class="row">
+						    <div class="col-lg-8">
+								<i class="fa fa-cutlery fa-fw"></i> Average Transactions
+							</div>
+							<div class="col-lg-4">
+							    <span class="pull-right text-muted small"><em><strong>{{avgTransRestaurant}}</strong> per day</em></span>
+							</div>
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+			<!-- /.col-lg-6 -->
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-money fa-fw" style="color:blue"></i> Validated Taxes
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-8">
+								<strong>Rp {{validatedTax}},00</strong>
+							</div>
+							<!-- /.col-lg-8 (nested) -->
+							<div class="col-lg-4">
+								<span class="pull-right text-muted small">
+									<em><strong>50%</strong> of Monitored Taxes</em>
+								</span>
+							</div>
+							<!-- /.col-lg-4 (nested) -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.panel-body -->
+				</div>
+				<!-- /.panel -->
+			</div>
+			<!-- /.col-lg-6 -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
