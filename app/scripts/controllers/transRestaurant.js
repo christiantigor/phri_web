@@ -40,8 +40,9 @@ angular.module('phriApp')
     $scope.initTransaction = function () {
         $scope.gettingDate();
         $scope.getTaxpayers();
-        //$scope.getTaxes();
-        //$scope.getTransactions();
+        $scope.calHeatMap();
+        //$scope.getTaxes(); - after selected restaurant is known
+        //$scope.getTransactionsList(); - after selected restaurant is known
     };
 	
     $scope.addDot = function (nStr) {
@@ -131,7 +132,8 @@ angular.module('phriApp')
 		
         //after selected restaurant is known
         $scope.getTaxes();
-        $scope.getTransactions();
+        $scope.getTransactionsRecord();
+        $scope.getTransactionsList();
 	};
 	
     $scope.urlTaxes = 'http://testingpurpose.eu5.org/getRestaurantTaxRecords/';
@@ -139,7 +141,9 @@ angular.module('phriApp')
     $scope.getTaxes = function () {
 	  $http({
         method: 'GET',
-        url: $scope.urlTaxes + $scope.selectedTaxpayer.table + '/' + $scope.selectedTaxpayer.id + '/' + $scope.todayDate.year + '/' + $scope.todayDate.monthNum,
+        url: $scope.urlTaxes + $scope.selectedTaxpayer.table +
+		'/' + $scope.selectedTaxpayer.id +'/' + $scope.todayDate.year +
+		'/' + $scope.todayDate.monthNum,
         data: '',
         cache: $templateCache }).
       success(function(data) {
@@ -185,39 +189,80 @@ angular.module('phriApp')
 		
     };
 	
-    $scope.urlTransactions = 'http://testingpurpose.eu5.org/getRestaurantTransListByDate/';
+    $scope.urlTransactionsRecord = 'http://testingpurpose.eu5.org/getRestaurantTransRecords/';
 	
-    $scope.getTransactions = function () {
+    $scope.getTransactionsRecord = function () {
       $http({
         method: 'GET',
-        url: $scope.urlTransactions + $scope.selectedTaxpayer.table + '/' + $scope.selectedTaxpayer.id + '/0' + $scope.todayDate.monthNum + '-' + $scope.todayDate.year + '/720/1',
+        url: $scope.urlTransactionsRecord + $scope.selectedTaxpayer.table +
+		'/' + $scope.selectedTaxpayer.id + '/' + $scope.todayDate.year + '/0' + $scope.todayDate.monthNum +
+		'/' + (parseInt($scope.selectedTaxpayer.onDevice) + parseInt($scope.selectedTaxpayer.offDevice)),
+        //url:'data/getTransactionsRecord.json',
         data: '',
         cache: $templateCache }).
       success(function(data) {
-        $scope.listTransactions(data);
+		$scope.listTransactionsRecord(data);
         return data;
       }).
       error(function(data) {
-        $scope.getTransactions();
+        $scope.getTransactionsRecord();
         return data;
       });
     };
-
-    $scope.restaurantTransactions = [];
-    var restaurantTransData = []; //for table
-    $scope.restaurantTransChart = []; //for transaction chart
 	
-    $scope.listTransactions = function (transactionList) {
+	$scope.restaurantTransChart = []; //for transaction chart
+	
+    $scope.listTransactionsRecord = function (transactionListRecord) {
         var date = [];
         date.push('date');
-        var cashier01 = [];
+        var cashiers = [];
+        for (var i=0; i<(parseInt($scope.selectedTaxpayer.onDevice)+parseInt($scope.selectedTaxpayer.offDevice)); i++) {
+            cashiers[i] = [];
+			cashiers[i].push('cashier ' + (i+1));
+        }
+		
+        for (var dt in transactionListRecord) {
+            var dt_obj = transactionListRecord[dt]
+			//console.log(dt_obj);
+            for (var hr in dt_obj) {
+                var hr_obj = dt_obj[hr];
+				//console.log(hr_obj);
+				var dateData = dt + ' ' + hr;
+				date.push(dateData);
+				for (var cashier in hr_obj) {
+				    var cashier_obj = hr_obj[cashier];
+					//console.log(cashier_obj);
+					var cashierData = cashier_obj.transSum;
+					var cashierIndex = 0;
+					cashiers[cashierIndex].push(cashierData);
+					/* for (var i=0; i<(parseInt($scope.selectedTaxpayer.onDevice)+parseInt($scope.selectedTaxpayer.offDevice)); i++){
+						cashiers[i].push(cashierData);
+					} */
+				}
+            }
+        }
+		
+		//console.log(cashiers);
+		
+		$scope.restaurantTransChart.push(date);
+		for (var i=0; i<(parseInt($scope.selectedTaxpayer.onDevice)+parseInt($scope.selectedTaxpayer.offDevice)); i++){
+			$scope.restaurantTransChart.push(cashiers[i]);
+		}
+		
+		console.log(date.length, cashiers[0].length, cashiers[1].length);
+		
+		//after transactions data loaded
+		console.log($scope.restaurantTransChart);
+        //$scope.chartTransRecords();
+		
+        /* var cashier01 = [];
         cashier01.push('cashier 01');
         var cashier02 = [];
         cashier02.push('cashier 02');
 		
-        transactionList.forEach(function (t) {
+        transactionListRecord.forEach(function (t) {
             try{
-                $scope.restaurantTransactions.push({
+                $scope.restaurantTransactionsList.push({
                     transId: t.transId,
                     dateTime: t.dateTime,
                     total: parseInt(t.total),
@@ -247,7 +292,74 @@ angular.module('phriApp')
         //after transactions data loaded
 		//console.log($scope.restaurantTransChart);
 		$scope.setTransactionTableParams();
-        $scope.chartTransRecords();
+        $scope.chartTransRecords(); */
+    };
+
+	
+    $scope.urlTransactionsList = 'http://testingpurpose.eu5.org/getRestaurantTransListByDate/';
+	
+    $scope.getTransactionsList = function () {
+      $http({
+        method: 'GET',
+        url: $scope.urlTransactionsList + $scope.selectedTaxpayer.table +
+		'/' + $scope.selectedTaxpayer.id +'/0' + $scope.todayDate.monthNum +
+		'-' + $scope.todayDate.year + '/30/1',
+        data: '',
+        cache: $templateCache }).
+      success(function(data) {
+        $scope.listTransactions(data);
+        return data;
+      }).
+      error(function(data) {
+        $scope.getTransactionsList();
+        return data;
+      });
+    };
+
+    $scope.restaurantTransactionsList = [];
+    var restaurantTransData = []; //for table
+	
+    $scope.listTransactions = function (transactionList) {
+        var date = [];
+        date.push('date');
+        var cashier01 = [];
+        cashier01.push('cashier 01');
+        var cashier02 = [];
+        cashier02.push('cashier 02');
+		
+        transactionList.forEach(function (t) {
+            try{
+                $scope.restaurantTransactionsList.push({
+                    transId: t.transId,
+                    dateTime: t.dateTime,
+                    total: parseInt(t.total),
+                    service: parseInt(t.service),
+                    receipt: t.receipt
+                });
+                restaurantTransData.push({ //data must be put here to show them on table
+                    transId: t.transId,
+                    dateTime: t.dateTime,
+                    total: parseInt(t.total),
+                    service: parseInt(t.service),
+                    receipt: t.receipt
+                });
+                date.push(t.dateTime);
+                cashier01.push(t.total);
+                cashier02.push(t.service);
+            }
+		    catch(err){
+                console.log('error list transaction');
+            }
+		});
+		
+        //$scope.restaurantTransChart.push(date);
+        //$scope.restaurantTransChart.push(cashier01);
+        //$scope.restaurantTransChart.push(cashier02);
+		
+        //after transactions data loaded
+		//console.log($scope.restaurantTransChart);
+		$scope.setTransactionTableParams();
+        //$scope.chartTransRecords();
     };
 	
     $scope.chartTaxRecords = function () {
@@ -289,7 +401,7 @@ angular.module('phriApp')
           bindto: '#chartTransRecords',
           data: {
             x: 'date',
-            x_format: '%Y-%m-%d %H:%M:%S',
+            x_format: '%Y-%m-%d %H',
             columns: $scope.restaurantTransChart
           },
           axis: {
@@ -307,6 +419,52 @@ angular.module('phriApp')
             show: true
           }
         });
+    };
+	
+    $scope.calHeatMap = function () {
+        var datas = [
+		    {date: 1405850461, value: 15},
+	        {date: 1405854061, value: 25},
+	        {date: 1405857661, value: 10}
+		];
+		
+		var parser = function (data) {
+		    var stats = [];
+			for(var d in data){
+			    stats[data[d].date] = data[d].value;
+			}
+			return stats;
+		};
+		
+		var cal = new CalHeatMap();
+		cal.init({
+			domain: "day",
+			subDomain: "hour",
+			colLimit: 24,
+			range: 1,
+			cellSize: 15,
+			displayLegend: false,
+			data: datas,
+			afterLoadData: parser,
+			nextSelector: "#next",
+            itemNamespace: "cal"
+        });
+		//cal.next(2);
+        var cal2 = new CalHeatMap();
+		cal2.init({
+            domain: "week",
+			subDomain: "day",
+			data: datas,
+			nextSelector: "#next",
+            itemNamespace: "cal2"
+        });
+		var cal3 = new CalHeatMap();
+		cal3.init({
+		    domain: "day",
+			range: 5,
+			data: "/data/dataYears.json",
+			start: new Date(2000,0)
+		});
     };
 	
 	//transaction table
@@ -355,8 +513,8 @@ angular.module('phriApp')
 		var fPg = true; //indicator for first page
         var page = 1;
 		
-		for (iArr=0,jArr=$scope.restaurantTransactions.length;iArr<jArr;iArr+=chunk){
-            tempArr = $scope.restaurantTransactions.slice(iArr,iArr+chunk);
+		for (iArr=0,jArr=$scope.restaurantTransactionsList.length;iArr<jArr;iArr+=chunk){
+            tempArr = $scope.restaurantTransactionsList.slice(iArr,iArr+chunk);
 			
 			//check if first page
 			if(fPg){
