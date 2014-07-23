@@ -40,7 +40,7 @@ angular.module('phriApp')
     $scope.initTransaction = function () {
         $scope.gettingDate();
         $scope.getTaxpayers();
-        $scope.calHeatMap();
+        //$scope.calHeatMap();
         //$scope.getTaxes(); - after selected restaurant is known
         //$scope.getTransactionsList(); - after selected restaurant is known
     };
@@ -229,20 +229,24 @@ angular.module('phriApp')
 				//console.log(hr_obj);
 				var dateData = dt + ' ' + hr;
 				date.push(dateData);
+
+				var cashierIndex = 0;
 				for (var cashier in hr_obj) {
 				    var cashier_obj = hr_obj[cashier];
-					//console.log(cashier_obj);
-					var cashierData = cashier_obj.transSum;
-					var cashierIndex = 0;
-					cashiers[cashierIndex].push(cashierData);
-					/* for (var i=0; i<(parseInt($scope.selectedTaxpayer.onDevice)+parseInt($scope.selectedTaxpayer.offDevice)); i++){
-						cashiers[i].push(cashierData);
-					} */
+					//console.log('cashier', cashier);
+					//console.log('cashier_obj', cashier_obj);
+					cashiers[cashierIndex].push(cashier_obj.transSum);
+					cashierIndex++;
+					//cashiers[2].push(cashier_obj.transSum);
+					//var cashierData = cashier_obj.transSum;
+					//var cashierIndex = 0;
+					//cashiers[cashierIndex].push(cashierData);
+					//for (var i=0; i<(parseInt($scope.selectedTaxpayer.onDevice)+parseInt($scope.selectedTaxpayer.offDevice)); i++){
+					//	cashiers[i].push(cashierData);
+					//}
 				}
             }
         }
-		
-		//console.log(cashiers);
 		
 		$scope.restaurantTransChart.push(date);
 		for (var i=0; i<(parseInt($scope.selectedTaxpayer.onDevice)+parseInt($scope.selectedTaxpayer.offDevice)); i++){
@@ -253,7 +257,7 @@ angular.module('phriApp')
 		
 		//after transactions data loaded
 		console.log($scope.restaurantTransChart);
-        //$scope.chartTransRecords();
+        $scope.chartTransRecords();
 		
         /* var cashier01 = [];
         cashier01.push('cashier 01');
