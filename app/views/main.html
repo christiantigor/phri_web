@@ -1,14 +1,14 @@
 <div id="wrapper" ng-init="initMain()">
 
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.html">PHRI</a>
+			<a ng-click="go('/')" class="navbar-brand" style="font-family:'Kaushan Script', cursive; font-size: 28px;" href="">PHRI</a>
 		</div>
 		<!-- /.navbar-header -->
 
@@ -32,8 +32,8 @@
 		</ul>
 		<!-- /.navbar-top-links -->
 
-		<div class="navbar-default navbar-static-side" role="navigation">
-			<div class="sidebar-collapse">
+		<div class="navbar-default sidebar" role="navigation">
+			<div class="sidebar-nav navbar-collapse">
 				<ul class="nav" id="side-menu">
 					<li ng-click="go('/')">
 						<a href=""><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
@@ -57,122 +57,141 @@
 			<!-- /.col-lg-12 -->
 		</div>
 		<!-- /.row -->
-        <div class="row">
-            <div class="col-lg-12">
-                <alert ng-repeat="news in newsticker" type="news.type" close="closeNewsticker($index)">{{news.msg}}</alert>
-			</div>
-        </div>
-		<!-- /.row -->
+		
+		<!-- Number of Taxpayers -->
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-users fa-fw"></i> Number of Taxpayers
 					</div>
 					<!-- /.panel-heading -->
-					<div class="panel-body">
-					    <div class="row">
-						    <div class="col-lg-8">
-								<i class="fa fa-cutlery fa-fw"></i> Restaurant
-							</div>
-							<div class="col-lg-4">
-							    <span class="pull-right text-muted small"><em><strong>{{taxpayersType[2][1]}}</strong> unit(s)</em></span>
-							</div>
-						</div>
-					</div>
-					<!-- /.panel-body -->
 				</div>
 				<!-- /.panel -->
 			</div>
-			<!-- /.col-lg-6 -->
-			<div class="col-lg-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<i class="fa fa-money fa-fw" style="color:grey"></i> Monitored Taxes
-					</div>
-					<!-- /.panel-heading -->
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-8">
-								<strong>Rp {{monitoredTax}},00</strong>
-							</div>
-							<!-- /.col-lg-8 (nested) -->
-							<div class="col-lg-4">
-								<span class="pull-right text-muted small">
-									<i class="fa fa-arrow-up fa-fw" style="color:green"></i>
-									<em><strong>10%</strong> from last month</em>
-								</span>
-							</div>
-							<!-- /.col-lg-4 (nested) -->
-						</div>
-						<!-- /.row -->
-					</div>
-					<!-- /.panel-body -->
-				</div>
-				<!-- /.panel -->
-			</div>
-			<!-- /.col-lg-6 -->
+			<!-- /.col-lg-12 -->
 		</div>
 		<!-- /.row -->
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-red">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-cutlery fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">{{taxpayersType[2][1]}}</div>
+								<div><b>Units</b></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+		
+		<!-- Transactions -->
+		<div class="row">
+			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-shopping-cart fa-fw"></i> Transactions
 					</div>
 					<!-- /.panel-heading -->
-					<div class="panel-body">
-						<div class="row">
-						    <div class="col-lg-8">
-								<i class="fa fa-cutlery fa-fw"></i> Number of Transactions
-							</div>
-							<div class="col-lg-4">
-							    <span class="pull-right text-muted small"><em><strong>{{numTransRestaurant}}</strong> this month</em></span>
-							</div>
-						</div>
-						<!-- /.row -->
-						<div class="row">
-						    <div class="col-lg-8">
-								<i class="fa fa-cutlery fa-fw"></i> Average Transactions
-							</div>
-							<div class="col-lg-4">
-							    <span class="pull-right text-muted small"><em><strong>{{avgTransRestaurant}}</strong> per day</em></span>
-							</div>
-						</div>
-						<!-- /.row -->
-					</div>
-					<!-- /.panel-body -->
 				</div>
 				<!-- /.panel -->
 			</div>
-			<!-- /.col-lg-6 -->
-			<div class="col-lg-6">
+			<!-- /.col-lg-12 -->
+		</div>
+		<!-- /.row -->
+		<div class="row">
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-yellow">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-shopping-cart fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">{{avgTransRestaurant}}</div>
+								<div><b>Average per day</b></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-green">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-shopping-cart fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">{{numTransRestaurant}}</div>
+								<div><b>Total this month</b></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+		
+		<!-- Taxes -->
+		<div class="row">
+			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<i class="fa fa-money fa-fw" style="color:blue"></i> Validated Taxes
+						<i class="fa fa-money fa-fw"></i> Taxes
 					</div>
 					<!-- /.panel-heading -->
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-8">
-								<strong>Rp {{validatedTax}},00</strong>
-							</div>
-							<!-- /.col-lg-8 (nested) -->
-							<div class="col-lg-4">
-								<span class="pull-right text-muted small">
-									<em><strong>50%</strong> of Monitored Taxes</em>
-								</span>
-							</div>
-							<!-- /.col-lg-4 (nested) -->
-						</div>
-						<!-- /.row -->
-					</div>
-					<!-- /.panel-body -->
 				</div>
 				<!-- /.panel -->
 			</div>
-			<!-- /.col-lg-6 -->
+			<!-- /.col-lg-12 -->
 		</div>
+		<!-- /.row -->
+		<div class="row">
+			<div class="col-lg-6 col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-money fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">Rp {{monitoredTax}},00</div>
+								<div><b>Monitored</b></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-money fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">Rp {{validatedTax}},00</div>
+								<div><b>Validated</b></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+		
+        <!-- <div class="row">
+            <div class="col-lg-12">
+                <alert ng-repeat="news in newsticker" type="news.type" close="closeNewsticker($index)">{{news.msg}}</alert>
+			</div>
+        </div> -->
 		<!-- /.row -->
 	</div>
 	<!-- /#page-wrapper -->

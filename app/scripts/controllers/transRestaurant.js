@@ -322,6 +322,7 @@ angular.module('phriApp')
 
     $scope.restaurantTransactionsList = [];
     var restaurantTransData = []; //for table
+    $scope.restaurantTransChartOld = []; //for transaction chart old
 	
     $scope.listTransactions = function (transactionList) {
         var date = [];
@@ -360,10 +361,15 @@ angular.module('phriApp')
         //$scope.restaurantTransChart.push(cashier01);
         //$scope.restaurantTransChart.push(cashier02);
 		
+		$scope.restaurantTransChartOld.push(date);
+        $scope.restaurantTransChartOld.push(cashier01);
+        $scope.restaurantTransChartOld.push(cashier02);
+		
         //after transactions data loaded
 		//console.log($scope.restaurantTransChart);
 		$scope.setTransactionTableParams();
         //$scope.chartTransRecords();
+        $scope.chartTransRecordsOld();
     };
 	
     $scope.chartTaxRecords = function () {
@@ -407,6 +413,32 @@ angular.module('phriApp')
             x: 'date',
             x_format: '%Y-%m-%d %H',
             columns: $scope.restaurantTransChart
+          },
+          axis: {
+            x: {
+              type: 'timeseries',
+              tick: {
+                format: '%d %b %H:%M'
+              }
+            },
+            y: {
+              label: 'Transaction'
+            }
+          },
+		  subchart: {
+            show: true
+          }
+        });
+    };
+	
+	//chartTransRecordsOld for displaying data on chart as data from cash register are not in 'getRestaurantTransRecords' service
+    $scope.chartTransRecordsOld = function () {
+        c3.generate({
+          bindto: '#chartTransRecordsOld',
+          data: {
+            x: 'date',
+            x_format: '%Y-%m-%d %H:%M:%S',
+            columns: $scope.restaurantTransChartOld
           },
           axis: {
             x: {
